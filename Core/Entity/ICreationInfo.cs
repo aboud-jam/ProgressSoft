@@ -8,6 +8,6 @@ namespace Core.Entity;
 
 public interface ICreationInfo
 {
-    public DateTime CreatedOn { get; set; }
-    public string CreatedBy { get; set; }
+    public DateTime ?CreatedOn { get; set; }
+    public string? CreatedBy { get; set; }
 }

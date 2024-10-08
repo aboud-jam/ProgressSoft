@@ -17,19 +17,16 @@ public interface IRepository<TDbContext, TType> where TDbContext : DbContext
 
    
     bool Delete(TType entity, bool isHardDelete = false);
-   
 
-    Task<TType> GetSingle(Expression<Func<TType, bool>> predicate = null,
-        Func<IQueryable<TType>, IOrderedQueryable<TType>> orderBy = null,
-        Func<IQueryable<TType>, IIncludableQueryable<TType, object>> include = null,
-        bool disableTracking = false);
-    Task<TResult> GetSingle<TResult>(Expression<Func<TType, TResult>> selector,
-        Expression<Func<TType, bool>> predicate = null,
-        Func<IQueryable<TType>, IOrderedQueryable<TType>> orderBy = null,
-        Func<IQueryable<TType>, IIncludableQueryable<TType, object>> include = null,
-        bool disableTracking = false);
 
-    
+    Task<TType> GetSingle(
+    Expression<Func<TType, bool>> predicate = null,
+    Func<IQueryable<TType>, IIncludableQueryable<TType, object>> include = null,
+    bool disableTracking = false);
+
+
+
+
     Task<IEnumerable<TResult>> GetList<TResult>(Expression<Func<TType, TResult>> selector,
         Expression<Func<TType, bool>> predicate = null,
         Func<IQueryable<TType>, IOrderedQueryable<TType>> orderBy = null,

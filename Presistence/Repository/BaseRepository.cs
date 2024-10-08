@@ -51,23 +51,30 @@ public class BaseRepository<TDbContext, T> : IRepository<TDbContext, T> where TD
         return isDeleted;
     }
 
-    
-   
 
-    public async Task<T> GetSingle(Expression<Func<T, bool>> predicate = null,
-        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-        bool disableTracking = false)
+
+
+    public async Task<T> GetSingle(
+    Expression<Func<T, bool>> predicate = null,
+    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+    bool disableTracking = false)
     {
         IQueryable<T> query = _context.Set<T>();
+
+        // Apply tracking options
         if (disableTracking) query = query.AsNoTracking();
+
+        // Include related entities if any
         if (include != null) query = include(query);
+
+        // Apply filtering criteria
         if (predicate != null) query = query.Where(predicate);
-        if (orderBy != null) return await orderBy(query).FirstOrDefaultAsync();
-        else return await query.FirstOrDefaultAsync();
+
+        // Return the first or default value found
+        return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<TResult> GetSingle<TResult>(Expression<Func<T, TResult>> selector,
+    /*public async Task<TResult> GetSingle<TResult>(Expression<Func<T, TResult>> selector,
         Expression<Func<T, bool>> predicate = null,
         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
@@ -79,13 +86,13 @@ public class BaseRepository<TDbContext, T> : IRepository<TDbContext, T> where TD
         if (predicate != null) query = query.Where(predicate);
         if (orderBy != null) return await orderBy(query).Select(selector).FirstOrDefaultAsync();
         else return await query.Select(selector).FirstOrDefaultAsync();
-    }
+    }*/
 
-    
 
-    
 
-    
+
+
+
     public async Task<bool> Any(Expression<Func<T, bool>> predicate = null)
     {
         return await _context.Set<T>().AnyAsync(predicate);

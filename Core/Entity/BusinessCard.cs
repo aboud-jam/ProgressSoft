@@ -34,6 +34,6 @@ public class BusinessCard :ICreationInfo,ISoftDeletion
     public string Address { get; set; }
     public bool IsDeleted { get ; set ; }
     public DateTime? DeletedOn { get ; set ; }
-    public DateTime CreatedOn { get; set ; }
-    public string CreatedBy { get ; set ; }
+    public DateTime? CreatedOn { get; set ; }
+    public string ?CreatedBy { get ; set ; }
 }

@@ -51,7 +51,8 @@ public class BusinessCardServices : IBusinessCardServices
     public async Task<ServiceOperationResult> DeleteBusinessCard(int id)
     {
         var finalResult = new ServiceOperationResult();
-        var item = await _context.GetSingle(predicate:item => item.Id == id);
+        //var item = await _context.GetSingle(predicate:item => item.Id == id);
+        var item = await _context.GetSingle(predicate: a=> a.Id == id);
         if (item is null)
         {
             finalResult.ErrorCodes.Add(Core.Enums.Errors.ItemNotFound);
