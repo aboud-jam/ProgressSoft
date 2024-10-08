@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,4 +25,18 @@ public class BusinessCardDetails
     [MaxLength(1048576)] // 1 MB = 1,048,576 bytes
 
     public string Address { get; set; }
+
+    public BusinessCard Convert()
+    {
+        return new BusinessCard
+        {
+            Name = this.Name,
+            Gender = this.Gender,
+            DateOfBirth = this.DateOfBirth,
+            Email = this.Email,
+            Phone = this.Phone,
+            Address = this.Address,
+        };
+    }
+    
 }
