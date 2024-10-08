@@ -1,3 +1,4 @@
+using Core.IServices;
 using Core.IServicesl;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IBusinessCardServices, BusinessCardServices>();
+builder.Services.AddScoped<IExportService, ExportService>();
 builder.Services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
